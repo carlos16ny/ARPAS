@@ -1,0 +1,9 @@
+.small-box .inner p{
+    font-size: 130% !important;
+}
+
+@media (max-width: 767px){
+    .small-box .inner p {
+        font-size: 130% !important;
+    }
+}

@@ -1,0 +1,233 @@
+/* Required for full background image */
+
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1000px;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 650px;
+  }
+}
+
+.top-nav-collapse {
+  background: #4354b3d8 !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+}
+
+@media (max-width: 991px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #3f51b5 !important;
+  }
+}
+
+.rgba-gradient {
+  background: -moz-linear-gradient(35deg, #4568dcc9, #b16ab3ce 100%);
+  background: -webkit-linear-gradient(35deg, #4568dcc9, #b16ab3ce 100%);
+  background: -webkit-gradient(linear, 35deg, from #4568dcc9, to #b16ab3ce );
+  background: -o-linear-gradient(35deg,#4568dcc9, #b16ab3ce 100%);
+  background: linear-gradient(to 35deg, #4568dcc9, #b16ab3ce 100%);
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.253);
+}
+
+.md-form label {
+  color: #ffffff;
+}
+
+h6 {
+  line-height: 1.7;
+}
+
+.navbar-brand>strong{
+  font-family: 'Abel';
+  letter-spacing: 3px;
+}
+
+.view{
+    background-image: url(../img/intro/igreja-fundo.jpg); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center center;
+}
+
+#map-container{
+    height: 400px;
+    background: url(../images/mapa.png);
+    background-position: center;
+    background-size: cover;
+}
+
+#card-mensagem{
+    background: rgba(255, 255, 255, 0.425);
+}
+
+.white-bg{
+    background-color: #ffffff;
+}
+
+.wrapper{
+  transform: translate(-50%, -50%);
+  margin-left: 50%;
+  margin-top: 30%;
+  width: 80%;
+}
+
+.btn-personal{
+  background:  #4568dcc9;
+}
+
+path{
+  opacity: 10;
+  fill: #fff;
+  stroke: #fff;
+  stroke-dasharray: 1200;
+  animation: animate 4s cubic-bezier(0,.23,1,.1);
+}
+
+@keyframes animate{
+  0%{
+    opacity: 0;
+    fill: none;
+    stroke-dashoffset:1200;
+
+  }
+
+  40%{
+    opacity: 5;
+    stroke-dashoffset: 1200;
+  }
+
+  90%{
+    fill: #fff;
+  }
+
+  100%{
+    fill: #fff;
+    opacity: 10;
+    stroke-dashoffset: 0;
+  }
+}
+
+
+
+
+
+#sidebar .list-group-item {
+    border-radius: 0;
+    background-color: #333;
+    color: #ccc;
+    border-left: 0;
+    border-right: 0;
+    border-color: #2c2c2c;
+    white-space: nowrap;
+}
+
+/* highlight active menu */
+#sidebar .list-group-item:not(.collapsed) {
+    background-color: #222;
+}
+
+/* closed state */
+#sidebar .list-group .list-group-item[aria-expanded="false"]::after {
+  content: " \f0d7";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 5px;
+}
+
+/* open state */
+#sidebar .list-group .list-group-item[aria-expanded="true"] {
+  background-color: #222;
+}
+#sidebar .list-group .list-group-item[aria-expanded="true"]::after {
+  content: " \f0da";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 5px;
+}
+
+/* level 1*/
+#sidebar .list-group .collapse .list-group-item  {
+  padding-left: 20px;
+}
+
+/* level 2*/
+#sidebar .list-group .collapse > .collapse .list-group-item {
+  padding-left: 30px;
+}
+
+/* level 3*/
+#sidebar .list-group .collapse > .collapse > .collapse .list-group-item {
+  padding-left: 40px;
+}
+
+@media (max-width:48em) {
+    /* overlay sub levels on small screens */
+    #sidebar .list-group .collapse.in, #sidebar .list-group .collapsing {
+        position: absolute;
+        z-index: 1;
+        width: 190px;
+    }
+    #sidebar .list-group > .list-group-item {
+        text-align: center;
+        padding: .75rem .5rem;
+    }
+    /* hide caret icons of top level when collapsed */
+    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
+    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
+        display:none;
+    }
+}
+
+/* change transition animation to width when entire sidebar is toggled */
+#sidebar.collapse {
+  transition: all .3s;
+  -webkit-transition-timing-function: ease;
+       -o-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-duration: .2s;
+       -o-transition-duration: .2s;
+          transition-duration: .2s;
+}
+
+#sidebar.collapsing {
+  transition: all .3s;
+  opacity: 0.8;
+  width: 0;
+  -webkit-transition-timing-function: ease-in;
+       -o-transition-timing-function: ease-in;
+          transition-timing-function: ease-in;
+  -webkit-transition-property: width;
+       -o-transition-property: width;
+          transition-property: width;
+
+}
+
+
+
+.mx-3{
+  padding-top: 3em;
+  margin-bottom: 3em;
+}
