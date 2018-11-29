@@ -75,6 +75,19 @@ function loadOptions(dates){
 };
 
 
+function loadOptionRange(quartos){
+    options = [];
+    for(var i=0; i<quartos.length; ++i){
+        options.push(
+            {
+                text: 'Quarto ' + quartos[i],
+                value: quartos[i]
+            }
+        )
+    }
+    return options;
+}
+
 function displayRooms(data, options){
     bootbox.prompt({
         title: "Selecione o quarto",
@@ -98,6 +111,33 @@ function displayRooms(data, options){
     });
 }
 
+
+function displayRoomsRange(data_range, datas, options) {
+    bootbox.prompt({
+        title: "Selecione o quarto para os dias : " + data_range ,
+        inputType: 'select',
+        inputOptions: options,
+        callback: function (result) {
+            console.log(result);
+            if (result) {
+                for(var i=0; i<datas.length; ++i){
+                    // data = datas[i].split('-');
+                    var table = $('#resumo')[0];
+                    let row = table.insertRow(0);
+                    row.name = "row" + result;
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    let cell3 = row.insertCell(2);
+                    cell1.innerHTML = 'Quarto ' + result;
+                    cell2.innerHTML = datas[i];
+                    cell3.innerHTML = "<button onclick='delete_room($(this))' class='btn btn-danger'>Remover</button>";
+                }
+
+            }
+        }
+    });
+}
+
 function delete_room(element){
     element.parent().parent().remove();
 }
@@ -105,7 +145,9 @@ function delete_room(element){
 
 
 $('#reservation').daterangepicker({
+   
     "locale": {
+        "format": 'DD/MM/YYYY',
         "separator": " - ",
         "applyLabel": "Aplicar",
         "applyName": "search",
@@ -140,24 +182,67 @@ $('#reservation').daterangepicker({
 });
 
 
+function getRangeDays (start, end) {
+    for (var arr = [], dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
+        arr.push(new Date(dt).toLocaleDateString());
+    }
+    return arr;
+};
+
+
 //range days
+
 $('#btn-buscar').click((event)=>{
+
     event.preventDefault();
     let data = $('#reservation')[0].value;
-    let xmlhttp = new XMLHttpRequest();
+
+    let data_range = data;
+
+    let xml = new XMLHttpRequest();
+
+    var url = "./assets/getRangeDates.php";
+    xml.open("POST", url, true);
+    xml.setRequestHeader("Content-type", "application/json");
+
+    data = data.split(' - ');
+    let d1 = data[0].split('/'); 
+    let data_ini = d1[1] + '/' + d1[0] + '/' + d1[2];
+    let d2 = data[1].split('/');
+    let data_fim = d2[1] + '/' + d2[0] + '/' + d2[2];
+
+    // console.log(data_ini);
+
+    var days = getRangeDays(new Date(data_ini), new Date(data_fim));
+
+
+    dados = {
+        datas : days
+    };
+
+    console.log(JSON.stringify(dados));
+
     let request;
 
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            request = xmlhttp.responseText;
-            if (request == 0) {
+    xml.onreadystatechange = function () {
+        if (xml.readyState == 4 && xml.status == 200) {
+            request = JSON.parse(xml.responseText);
+            if (request.id_quartos.length == 0) {
                 $('#row_alert').show();
+                return;
+            }else{
+                // request.room_num.toArray().foreach(data=>{
+                //     console.log(data);
+                // })
+                options = JSON.parse(JSON.stringify(request.room_num));
+                // console.log(options);
+                displayRoomsRange(data_range, days, loadOptionRange(options)); 
             }
         }
     }
 
-    xmlhttp.open("GET", "assets/getAvaliableDays.php?dataRange=" + data, true);
-    xmlhttp.send();
+
+    xml.send(JSON.stringify(dados));
 
 });
 

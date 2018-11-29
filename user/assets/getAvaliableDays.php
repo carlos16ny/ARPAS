@@ -9,9 +9,5 @@ if(isset($_REQUEST['data'])){
     echo json_encode($return->fetchAll(PDO::FETCH_ASSOC), JSON_UNESCAPED_UNICODE);
     
 }
-else if(isset($_REQUEST['dataRange'])){
-    $data = $_REQUEST['dataRange'];
-    echo 0;
-}
 
 ?>

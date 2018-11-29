@@ -81,7 +81,7 @@ require_once 'assets/controllerAgendamento.php';
                         }else if($res->status == 3) {
                             echo '<td><span class="label label-danger">Cancelado</span></td>';
                         }?>
-                        <td><?=$res->total?></td>
+                        <td>R$ <?=$res->total?></td>
                         <?php if($res->status == 1) { ?>
                              <td><input type="checkbox" onchange="selectInput(this)" value=<?=$res->id?>></td>
                         <?php } else { ?>

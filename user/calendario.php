@@ -134,7 +134,7 @@ include 'assets/templates/header.php';
 <script src="../admin-components/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <!-- datepicker range -->
 <script src="../admin-components/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<script src="../admin-components/bower_components/moment/min/moment.min.js"></script>
+<!-- <script src="../admin-components/bower_components/moment/min/moment.min.js"></script> -->
 <script src="../admin-components/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- bootbox -->
 <script src="../assets/js/bootbox.min.js"></script>

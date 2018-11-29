@@ -59,12 +59,12 @@ require_once 'classDatabase.php';
             }
         }
 
-        public function getRoomId($room_num){
-            $query = 'SELECT room.id from room where room.room_num = :num';
+        public function getRoomId_Price($room_num){
+            $query = 'SELECT room.id, room.price from room where room.room_num = :num';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":num", $room_num);
             $stmt->execute();
-            return $stmt->fetchColumn();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
 
         public function getRoomsAvaliable($dateRange){
@@ -73,7 +73,7 @@ require_once 'classDatabase.php';
         }
 
         public function getRoomByDay($day){
-            $query = 'SELECT room.id, room.room_num, room.price from room where room.id not in (SELECT hosted.room_id from hosted WHERE hosted.check_in = :date AND hosted.status = 1)';
+            $query = 'SELECT room.id, room.room_num, room.price from room where room.id not in (SELECT hosted.room_id from hosted WHERE hosted.check_in = :date AND hosted.status != 3)';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":date", $day);
             $stmt->execute();
@@ -83,12 +83,13 @@ require_once 'classDatabase.php';
         public function reserveRoomByDay($day, $room_num, $user_id){
             $day = explode("/", $day);
             $d = $day[2].'/'.$day[1].'/'.$day[0];
-            $query = 'INSERT INTO `hosted` VALUES (null, :id_user, :room_id, :check_in, :check_in, 0, 1)';
+            $query = 'INSERT INTO `hosted` VALUES (null, :id_user, :room_id, :check_in, :check_in, :price, 1)';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":id_user", $user_id);
-            $id_room = $this->getRoomId($room_num);
+            $id_room = $this->getRoomId_Price($room_num)->id;
             $stmt->bindParam(":room_id", $id_room);
             $stmt->bindParam(":check_in", $d );
+            $stmt->bindParam(":price", $this->getRoomId_Price($room_num)->price );
             try{
                 $stmt->execute();
                 return 1;
