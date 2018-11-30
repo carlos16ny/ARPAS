@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include 'assets/protection.php';
 $tituloPagina = 'Reservas';
 include 'assets/templates/header.php';
 // require_once 'assets/controllerAgendamento.php';
@@ -52,7 +52,7 @@ include 'assets/templates/header.php';
                             <input type="text" class="form-control pull-right" name="range-date" id="reservation">
                         </div>
 
-                        <button type="submit" class="btn ml-auto btn-sm btn-success" name="range" id="btn-buscar">Pesquisar</button>
+                        <button type="submit" class="btn mt-2 btn-sm btn-success" name="range" id="btn-buscar">Pesquisar</button>
                     <!-- /.input group -->
                     </div>
                 </form>
@@ -72,7 +72,7 @@ include 'assets/templates/header.php';
             </div>
             <div class="box-body">
 
-              <table class="table table-bordered">
+              <table class="table table-bordered mt-2">
                 <thead>
                   <th>Quarto</th>
                   <th>Dia</th>
@@ -87,7 +87,7 @@ include 'assets/templates/header.php';
               <div class="input-group">
 
                 <div class="input-group-btn">
-                  <button id="concluir" type="button" class="btn btn-primary btn-flat">Concluir</button>
+                  <button id="concluir" type="button" class="btn mt-4 btn-primary btn-flat">Concluir</button>
                 </div>
                 <!-- /btn-group -->
               </div>
