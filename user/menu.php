@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include 'assets/protection.php';
 $tituloPagina = 'Usuário';
 include 'assets/templates/header.php' 
 ?>
@@ -47,7 +47,7 @@ include 'assets/templates/header.php'
         <div class="icon">
             <i class="fas fa-comments"></i>
         </div>
-        <a href="mensagens.php" class="small-box-footer">Verificar Mensagens  <i class="fa fa-arrow-circle-right"></i></a>
+        <a id="msg_a" href="mensagens.php" class="small-box-footer">Verificar Mensagens  <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -70,5 +70,11 @@ include 'assets/templates/header.php'
 </section>
 
 
-
 <?php include 'assets/templates/footer.php' ?>
+
+<script>
+    $('#msg_a').click(event=>{
+        event.preventDefault();
+        alert('Função indisponivel no momento !');
+    });
+</script>

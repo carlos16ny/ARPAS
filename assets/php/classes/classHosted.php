@@ -99,16 +99,86 @@ require_once 'classDatabase.php';
             }
         }
 
-        public function getHostByUser($user_id){
-            $query = 'SELECT h.*, u.name, r.room_num FROM hosted as h, user as u, room as r WHERE h.user_id = :user_id AND h.room_id = r.id GROUP BY h.id ORDER BY h.check_in ASC' ;
+        public function getHostByUser($limit_in, $limit_sup){
+            $query = 'SELECT h.*, u.name, r.room_num FROM hosted as h, user as u, room as r WHERE h.user_id = :user_id AND h.room_id = r.id GROUP BY h.id ORDER BY h.check_in DESC LIMIT :inf , :sup ' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $this->id_guest);
+            $stmt->bindParam(":inf", $limit_in, PDO::PARAM_INT);
+            $stmt->bindParam(":sup", $limit_sup, PDO::PARAM_INT);
+            try{
+                $stmt->execute();
+                return $stmt;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return NULL;
+            }
+        }
+
+        public function getHostedCount($user_id){
+            $query = 'SELECT count(*) from hosted WHERE user_id = :user_id' ;
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":user_id", $user_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_COLUMN);
+        }
+
+        public function getHotedByDateCount($user_id, $data1, $data2){
+            $query = 'SELECT count(*) from hosted WHERE user_id = :user_id AND check_in >= :data1 AND check_in <= :data2' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $user_id);
+            $data1 = DateTime::CreateFromFormat('d/m/Y', $data1);
+            $data2 = DateTime::CreateFromFormat('d/m/Y', $data2);
+            $stmt->bindParam(":data1", $data1->format('Y-m-d'));
+            $stmt->bindParam(":data2", $data2->format('Y-m-d'));
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_COLUMN);
+        }
+
+        public function getHostedUnpayedCount($user_id){
+            $query = 'SELECT count(*) from hosted WHERE user_id = :user_id AND status = 1' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $user_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_COLUMN);
+        }
+
+        public function getHostedUnpayedByUser($user_id, $limit_in, $limit){
+            $query = 'SELECT h.*, r.room_num from hosted as h, room as r WHERE h.user_id = :user_id AND h.status = 1 AND h.room_id = r.id ORDER BY h.check_in DESC LIMIT :inf , :sup ' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $user_id);
+            $stmt->bindParam("inf", $limit_in, PDO::PARAM_INT);
+            $stmt->bindParam("sup", $limit, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt;
         }
 
+        public function getHostPayedByUserCount($user_id){
+            $query = 'SELECT count(*) from hosted WHERE user_id = :user_id AND status = 2' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $user_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_COLUMN);
+
+        }
+
+        public function getHostPayedByUser($limit_inf, $limit){
+            $query = 'SELECT h.*, u.name, r.room_num FROM hosted as h, user as u, room as r WHERE h.user_id = :user_id AND h.room_id = r.id AND h.status = 2 GROUP BY h.id ORDER BY h.check_in DESC LIMIT :inf , :sup ' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $this->id_guest);
+            $stmt->bindParam(":inf", $limit_inf, PDO::PARAM_INT);
+            $stmt->bindParam(":sup", $limit, PDO::PARAM_INT);
+            try{
+                $stmt->execute();
+                return $stmt;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return NULL;
+            }
+        }
+
         public function cancelarReserva($reg_id){
-            $query = "UPDATE hosted SET status = 3 WHERE hosted.id = :id";
+            
+            $query = "UPDATE hosted SET status = 3 WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":id", $reg_id);
             try{

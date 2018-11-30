@@ -1,58 +1,32 @@
 <?php 
-session_start();
+include 'assets/protection.php';
 $tituloPagina = 'Registro Pagamento';
 include 'assets/templates/header.php';
 $user_id = $_SESSION['id_user'];
 require_once '../assets/php/classes/classHosted.php';
-require_once 'assets/controllerRegistros.php';
+require_once 'assets/controllerRegistrosPagos.php';
 ?>
-<link rel="stylesheet" href="../admin-components/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
-<section>
-    <div class="row">
-        <div class="col-md-3 col-sm-1"></div>    
-        <div class="col-md-6 col-sm-10">
-            <div class="box-body">
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label>Intervalo de Consulta:</label>
 
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" class="form-control pull-right" name="range-date" id="reservation">
-                        </div>
-
-                        <button type="submit" class="btn ml-auto btn-sm btn-success" name="search_pag">Pesquisar</button>
-                    <!-- /.input group -->
-                    </div>
-                </form>
-            </div>    
-        </div>    
-        <div class="col-md-3 col-sm-1"></div> 
-    </div>
-
+<section class="content-header">
+    <h1>
+    Registro
+    <small>Pagamentos</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="menu.php"><i class="fa fa-dashboard"></i>Home</a></li>
+    <li class="active">Pagamentos</li>
+    </ol>
 </section>
 
-<section>
+<section class="mt-5">
 
-<div class="container-fluid container">
+<div class="mt-5 container">
     <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Reservas Pagas</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -71,8 +45,31 @@ require_once 'assets/controllerRegistros.php';
                         <td><?=$res->check_in?></td>
                         <td><span class="label label-success">Pago</span></td>
                     </tr>
-                    <?php } } ?>                
+                    <?php } 
+                } ?>                
               </table>
+              <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate" style="align-items : center">
+                  <ul class="pagination" style="margin-left: 3rem">
+                        <?php 
+                        for($i=1 ; $i<=$pages; $i++){
+                            if($i == $page){
+                                echo '
+                                    <li class="paginate_button active">
+                                        <a href="reg_pagamento.php?page='.$i.'" tabindex="0" role="buttom">'.$i.'</a>
+                                    <li>
+                                ';
+                            }else{
+                                echo '
+                                    <li class="paginate_button">
+                                        <a href="reg_pagamento.php?page='.$i.'" tabindex="0" role="buttom">'.$i.'</a>
+                                    <li>
+                                ';
+                            }
+                        }
+                        
+                        ?>
+                     </ul>
+                </div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -107,43 +104,6 @@ require_once 'assets/controllerRegistros.php';
 <script src="../admin-components/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <script>
-
-    $('#reservation').daterangepicker({
-        "locale": {
-            "format": 'DD/MM/YYYY',
-            "separator": " - ",
-            "applyLabel": "Aplicar",
-            "applyName" : "search",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "weekLabel": "Sem",
-            "daysOfWeek": [
-                'Dom',
-                'Seg',
-                'Ter',
-                'Qua',
-                'Qui',
-                'Sex',
-                'Sáb'
-            ],
-            "monthNames": [
-                'Janeiro',
-                'Fevereiro',
-                'Março',
-                'Abril',
-                'Maio',
-                'Junho',
-                'Julho',
-                'Agosto',
-                'Setembro',
-                'Outubro',
-                'Novembro',
-                'Dezembro'
-            ]
-        }
-    });
-
 </script>
 </body>
 </html>

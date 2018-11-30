@@ -1,5 +1,5 @@
 <?php
-session_start();
+include 'assets/protection.php';
 $tituloPagina = 'Mensagens';
 include 'assets/templates/header.php' 
 ?>

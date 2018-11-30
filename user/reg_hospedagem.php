@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include 'assets/protection.php';
 $tituloPagina = 'Registro Hospedagem';
 include 'assets/templates/header.php';
 $user_id = $_SESSION['id_user'];
@@ -9,7 +9,6 @@ require_once 'assets/controllerAgendamento.php';
 
 
 ?>
-<link rel="stylesheet" href="../admin-components/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
 <section class="content-header">
     <h1>
@@ -17,40 +16,14 @@ require_once 'assets/controllerAgendamento.php';
     <small>Hospedagem</small>
     </h1>
     <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+    <li><a href="menu.php"><i class="fa fa-dashboard"></i>Home</a></li>
     <li class="active">Hospedagem</li>
     </ol>
 </section>
 
-<section>
-    <div class="row">
-        <div class="col-md-3 col-sm-1"></div>    
-        <div class="col-md-6 col-sm-10">
-            <div class="box-body">
-                <form action="reg_hospedagem.php" method="post">
-                    <div class="form-group">
-                        <label>Intervalo de Consulta:</label>
 
-                        <div class="input-group mb-2">
-                            <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" class="form-control pull-right" name="range-date" id="reservation">
-                        </div>
-
-                        <button type="submit" class="btn ml-auto btn-sm btn-success" name="search_hosp">Pesquisar</button>
-                    <!-- /.input group -->
-                    </div>
-                </form>
-            </div>    
-        </div>    
-        <div class="col-md-3 col-sm-1"></div> 
-    </div>
-
-</section>
-
-<section>
-<div class="container-fluid container">
+<section class="mt-5">
+<div class="mt-5 container">
     <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -69,11 +42,13 @@ require_once 'assets/controllerAgendamento.php';
                   <th>Pagar</th>
                   <th>Cancelar</th>
                 </tr>
-                <?php foreach($result as $res) { ?>
+                <?php foreach($result as $res) { 
+                    $d = DateTime::CreateFromFormat('Y-m-d', $res->check_in);    
+                ?>
                     <tr>
                         <td><?=$res->id?></td>
                         <td><?=$res->room_num?></td>
-                        <td><?=$res->check_in?></td>
+                        <td><?=$d->format('d/m/Y')?></td>
                         <?php if($res->status == 1) {
                             echo '<td><span class="label label-primary">Reservado</span></td>';
                         }else if ($res->status == 2){
@@ -98,11 +73,31 @@ require_once 'assets/controllerAgendamento.php';
                         <?php } ?>
                         
                     </tr>
-                    <form action="" method="get">
-                        <input type="hidden" name="">
-                    </form>
                 <?php } ?>
               </table>
+              <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate" style="align-items : center">
+                  <ul class="pagination" style="margin-left: 3rem">
+                        <?php 
+                        for($i=1 ; $i<=$pages; $i++){
+                            if($i == $page){
+                                echo '
+                                    <li class="paginate_button active">
+                                        <a href="reg_hospedagem.php?page='.$i.'" tabindex="0" role="buttom">'.$i.'</a>
+                                    <li>
+                                ';
+                            }else{
+                                echo '
+                                    <li class="paginate_button">
+                                        <a href="reg_hospedagem.php?page='.$i.'" tabindex="0" role="buttom">'.$i.'</a>
+                                    <li>
+                                ';
+                            }
+                        }
+                        
+                        ?>
+                     </ul>
+                </div>
+                
             </div>
             <!-- /.box-body -->
           </div>
@@ -182,43 +177,6 @@ require_once 'assets/controllerAgendamento.php';
 <script src="../admin-components/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="./assets/js/controllerHospedagem.js"></script>
 <script>
-
-    $('#reservation').daterangepicker({
-        "locale": {
-            "format": 'DD/MM/YYYY',
-            "separator": " - ",
-            "applyLabel": "Aplicar",
-            "applyName" : "search",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "weekLabel": "Sem",
-            "daysOfWeek": [
-                'Dom',
-                'Seg',
-                'Ter',
-                'Qua',
-                'Qui',
-                'Sex',
-                'Sáb'
-            ],
-            "monthNames": [
-                'Janeiro',
-                'Fevereiro',
-                'Março',
-                'Abril',
-                'Maio',
-                'Junho',
-                'Julho',
-                'Agosto',
-                'Setembro',
-                'Outubro',
-                'Novembro',
-                'Dezembro'
-            ]
-        }
-    });
-
 </script>
 </body>
 </html>

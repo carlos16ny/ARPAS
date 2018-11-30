@@ -2,11 +2,10 @@
 
 $hosted = new Hosted();
 $hosted->setIdGuest($user_id);
-static $result;
 
 $limit = 5;
 $page;
-$registros = $hosted->getHostedCount($user_id);
+$registros = $hosted->getHostPayedByUserCount($user_id);
 
 if(!isset($_GET['page'])){
     $page = 1;
@@ -15,8 +14,8 @@ if(!isset($_GET['page'])){
 }
 
 $limit_inf = ($page - 1) * $limit;
-$result = $hosted->getHostByUser($limit_inf, $limit)->fetchAll(PDO::FETCH_OBJ);
-$pages = ceil($registros / $limit);
+$result = $hosted->getHostPayedByUser($limit_inf, $limit)->fetchAll(PDO::FETCH_OBJ);
+$pages = ceil($registros / $limit) ;
 
 // if( isset($_POST['search_hosp']) ){
 //     $data = $_POST['range-date'];

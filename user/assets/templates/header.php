@@ -18,12 +18,13 @@
   <link rel="stylesheet" href="../admin-components/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="../admin-components/dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
-    <a href="../admin-components/index2.html" class="logo">
+    <a href="menu.php" class="logo">
       <span class="logo-mini"><b>A.</b>S.</span>
       <span class="logo-lg"><b></b>A.R.P.A.S.</span>
     </a>
@@ -126,7 +127,8 @@
         </li>
 
         <li>
-          <a href="mensagens.php">
+          <a href="mensagens.php" onclick="event.preventDefault();
+                                           alert('Função indisponivel no momento !');">
             <i class="fa fa-envelope"></i><span>Mensagens</span>
           </a>
         </li>
