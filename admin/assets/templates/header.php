@@ -41,17 +41,17 @@
           <!-- ********************************* -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src=<?=$_SESSION['foto_user']?> class="user-image" alt="User Image">
-              <span class="hidden-xs"><?=$_SESSION['nome_user']?></span>
+              <img src="../assets/images/igreja/ARPAS-LOGO.png" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?=$_SESSION['admin_nome']?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <!-- imagem do db -->
-                <img src=<?=$_SESSION['foto_user']?> class="img-circle" alt="User Image">  
+                <img src="../assets/images/igreja/ARPAS-LOGO.png" class="img-circle" alt="User Image">  
                 <p>
 
-                  <?=$_SESSION['nome_user']?>
+                  <?=$_SESSION['admin_nome']?>
 
                 </p>
               </li>
@@ -61,7 +61,7 @@
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="../assets/php/logout.php?type=admin" class="btn btn-default btn-flat">Sair</a>
+                  <a href="assets/php/logout.php" class="btn btn-default btn-flat">Sair</a>
                 </div>
               </li>
             </ul>

@@ -169,6 +169,7 @@ require_once 'classDatabase.php';
             return $stmt;
         }
 
+
         public function getHostPayedByUserCount($user_id){
             $query = 'SELECT count(*) from hosted WHERE user_id = :user_id AND status = 2' ;
             $stmt = $this->conn->prepare($query);
@@ -191,6 +192,14 @@ require_once 'classDatabase.php';
                 echo $e->getMessage();
                 return NULL;
             }
+        }
+
+        public function getReserveDetail(){
+            $query = 'SELECT hosted.*, room.room_num, user.name, user.foto from user, hosted, room WHERE hosted.id = :id AND hosted.room_id = room.id AND hosted.user_id = user.id' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->execute();
+            return $stmt;
         }
 
         public function cancelarReserva($reg_id){
@@ -216,7 +225,7 @@ require_once 'classDatabase.php';
         }
 
         public function getAllRoomsWithStatus($day){
-            $query = "SELECT h.id as hosted_id, h.status as hosted_status, h.check_in, r.room_num FROM room as r LEFT JOIN hosted as h ON h.room_id = r.id AND h.check_in = :data AND h.status != 3";
+            $query = "SELECT h.id as hosted_id, h.status as hosted_status, h.check_in, r.room_num, r.id as room_id FROM room as r LEFT JOIN hosted as h ON h.room_id = r.id AND h.check_in = :data AND h.status != 3";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":data", $day);
             $stmt->execute();

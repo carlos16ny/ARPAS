@@ -1,3 +1,13 @@
+<?php
+session_start();
+require_once 'assets/php/login.php';
+if(isset($_SESSION['admin_id'])){
+  header("Location: menu.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,9 +33,9 @@
   <div class="login-box-body">
     <p class="login-box-msg">Login Administrativo</p>
 
-    <form action="indes.php" method="post">
+    <form action="index.php" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" name="email" placeholder="Email">
+        <input type="text" class="form-control" name="email" placeholder="Usuário">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -37,13 +47,11 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+          <button type="submit" name="entrar" class="btn btn-primary btn-block btn-flat">Entrar</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-
-    <a href="#">Esqueci minha senha</a><br>
   </div>
 </div>
 
