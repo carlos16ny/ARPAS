@@ -38,7 +38,7 @@
 
         public function index(){
 
-            $query = 'SELECT * FROM admin WHERE 1';
+            $query = 'SELECT * FROM functionaries WHERE 1';
             $stmt = $this->conn->prepare($query);
 
             try{
@@ -48,6 +48,15 @@
                 echo $e->getMessage();
                 return null;
             }
+        }
+
+        public function getLogin(){
+            $query = "SELECT * FROM functionaries WHERE password = :pass AND user = :user";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":pass", $this->pass);
+            $stmt->bindParam(":user", $this->user);
+            $stmt->execute();
+            return $stmt;
         }
     }
 

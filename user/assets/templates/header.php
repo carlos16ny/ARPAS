@@ -1,9 +1,11 @@
-<?php if(!isset($_SESSION['foto_user']) || $_SESSION['foto_user']==null){ 
+<?php 
+  
+  if(!isset($_SESSION['foto']) || $_SESSION['foto']==NULL){ 
     $foto = "../assets/images/faces/avatar.png";
   }else {
-    $foto = $_SESSION['foto_user'];
+    $foto = $_SESSION['foto'];
   }
-  ?>
+?>
 
 <!DOCTYPE html>
 <html>
@@ -62,10 +64,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                  <a href="profile.php" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="../../../assets/php/logout.php?type=user" class="btn btn-default btn-flat">Sair</a>
+                  <a href="assets/logout.php" class="btn btn-default btn-flat">Sair</a>
                 </div>
               </li>
             </ul>

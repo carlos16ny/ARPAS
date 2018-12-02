@@ -60,7 +60,7 @@
         }
 
         public function getUserByEmail(){
-            $query = 'SELECT * FROM user WHERE `email` = :email ';
+            $query = 'SELECT * FROM user WHERE email = :email ';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(":email", $this->email);
 
@@ -91,6 +91,89 @@
                 var_dump($stmt);
                 echo $e->getMessage();
                 return null;
+            }
+        }
+
+        public function updateName(){
+            $query = "UPDATE user SET name = :name WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->bindParam(":name", $this->name);
+            try{
+                $stmt->execute();
+                return 1;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
+        public function updateEmail(){
+            $query = "UPDATE user SET email = :email WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->bindParam(":email", $this->email);
+            try{
+                $stmt->execute();
+                return 1;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
+        public function updateSenha(){
+            $query = "UPDATE user SET password = :pass WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->bindParam(":pass", $this->pass);
+            try{
+                $stmt->execute();
+                return 1;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
+        public function updateFoto(){
+            $query = "UPDATE user SET foto = :foto WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam("id", $this->id);
+            $stmt->bindParam("foto", $this->foto);
+            try{
+                $stmt->execute();
+                return 1;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
+        public function getLogin(){
+            $query = "SELECT * FROM user WHERE password = :pass AND email = :email";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":pass", $this->pass);
+            $stmt->bindParam(":email", $this->email);
+            $stmt->execute();
+            return $stmt;
+        }
+
+        public function createUser(){
+            $query = "INSERT INTO user (user, name, password, email, birthday, foto) VALUES ( :user, :nome, :pass, :email, :bday, :foto);";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user", $this->user);
+            $stmt->bindParam(":nome", $this->name);
+            $stmt->bindParam(":pass", $this->pass);
+            $stmt->bindParam(":email", $this->email);
+            $stmt->bindParam(":bday", $this->birthday);
+            $stmt->bindParam(":foto", $this->foto);
+            try{
+                $stmt->execute();
+                return 1;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
             }
         }
 

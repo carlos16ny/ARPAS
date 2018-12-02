@@ -77,15 +77,15 @@ if (! isset($accessToken)) {
 
 		if($user->createUserFromFacebook() != null){
 			$_SESSION['email_user'] = $us['email'];
-			$_SESSION['foto_user'] = "https://graph.facebook.com/{$us['id']}/picture?width=400";
+			$_SESSION['foto'] = "https://graph.facebook.com/{$us['id']}/picture?width=400";
 			$_SESSION['nome_user'] = $us['name'];
-			$u_id = $user->getUserByEmail($_SESSION['email_user'])->fetch(PDO::FETCH_OBJ)->id;
+			$u_id = $user->getUserByEmail()->fetch(PDO::FETCH_OBJ)->id;
 			$_SESSION['id_user'] = $u_id;
 		}
 
 	}else{
 		$_SESSION['email_user'] = $us['email'];
-		$_SESSION['foto_user'] = "https://graph.facebook.com/{$us['id']}/picture?width=400";
+		$_SESSION['foto'] = "https://graph.facebook.com/{$us['id']}/picture?width=400";
 		$_SESSION['nome_user'] = $us['name'];
 		$_SESSION['id_user'] = $stmt->id;
 	}

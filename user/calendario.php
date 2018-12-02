@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include 'assets/protection.php';
 $tituloPagina = 'Reservas';
 include 'assets/templates/header.php';

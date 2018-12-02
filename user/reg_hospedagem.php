@@ -1,12 +1,11 @@
 <?php 
+session_start();
 include 'assets/protection.php';
 $tituloPagina = 'Registro Hospedagem';
 include 'assets/templates/header.php';
 $user_id = $_SESSION['id_user'];
 require_once '../assets/php/classes/classHosted.php';
-require_once 'assets/controllerRegistros.php';
 require_once 'assets/controllerAgendamento.php';
-
 
 ?>
 

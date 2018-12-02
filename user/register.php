@@ -1,7 +1,5 @@
 <?php
 session_start();
-require_once 'assets/registerForm.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -36,39 +34,27 @@ require_once 'assets/registerForm.php';
   <div class="register-box-body">
     <p class="login-box-msg">Registro de Novo Usuário</p>
 
-    <form action="register.php" method="post">
+    <form >
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Nome" name="nome">
+        <input type="text" class="form-control" placeholder="Nome" id="nome">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="email">
+        <input type="email" class="form-control" placeholder="Email" id="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Senha" name="senha1">
+        <input type="password" class="form-control" placeholder="Senha" id="senha1">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Repita a senha" name='senha2'>
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <label for="exampleInputFile">Foto Perfil</label>
-        <input type="file" class="form-control" name='foto'>
-        <span class="glyphicon glyphicon-cloud-upload form-control-feedback"></span>
+        <input type="password" class="form-control" placeholder="Repita a senha" id='senha2'>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Aceito os  <a href="#">termos</a>
-            </label>
-          </div>
-        </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" name="registrar" class="btn btn-primary btn-block btn-flat">Registrar</button>
+          <button id="registrar" onclick="registerClick(event)" disabled class="btn btn-primary btn-block btn-flat">Registrar</button>
         </div>
         <!-- /.col -->
       </div>
@@ -91,6 +77,8 @@ require_once 'assets/registerForm.php';
 <script src="../admin-components/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../admin-components/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../admin-components/plugins/iCheck/icheck.min.js"></script>
+<script src="../assets/js/bootbox.min.js"></script>
+<script src="./assets/js/controllerRegister.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
