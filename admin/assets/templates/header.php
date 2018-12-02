@@ -96,11 +96,6 @@
         </a>
       </li>
       <li class="menu-texto">
-        <a href="reservar_quarto.php">
-          <i class="fa fa-check"></i> <span>Reservar</span>
-        </a>
-      </li>
-      <li class="menu-texto">
         <a href="" onclick="alert('Função não disponível')">
           <i class="fa fa-envelope"></i> <span>Menssagens</span>
         </a>

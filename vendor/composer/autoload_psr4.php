@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'PagSeguro\\' => array($vendorDir . '/pagseguro/pagseguro-php-sdk/source'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

@@ -10,6 +10,7 @@ class ComposerStaticInitd81cf300d3c62a6055d5200e38915a8d
         'P' => 
         array (
             'PagSeguro\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
@@ -17,6 +18,10 @@ class ComposerStaticInitd81cf300d3c62a6055d5200e38915a8d
         'PagSeguro\\' => 
         array (
             0 => __DIR__ . '/..' . '/pagseguro/pagseguro-php-sdk/source',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 

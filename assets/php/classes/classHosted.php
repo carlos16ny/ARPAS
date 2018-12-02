@@ -80,6 +80,23 @@ require_once 'classDatabase.php';
             return $stmt;
         }
 
+        public function reserveRoom($day, $room_id, $user_id, $price){
+
+            $query = 'INSERT INTO `hosted` VALUES (null, :id_user, :room_id, :check_in, :check_in, :price, 1)';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":room_id", $room_id);
+            $stmt->bindParam(":id_user", $user_id);
+            $stmt->bindParam(":check_in", $day );
+            $stmt->bindParam(":price", $price );
+            try{
+                $stmt->execute();
+                return 1;
+            }catch (PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
         public function reserveRoomByDay($day, $room_num, $user_id){
             $day = explode("/", $day);
             $d = $day[2].'/'.$day[1].'/'.$day[0];
@@ -188,6 +205,22 @@ require_once 'classDatabase.php';
                 echo $e->getMessage();
                 return 0;
             }
+        }
+
+        public function getReservedRoomsByDay($day){
+            $query = "SELECT h.id as hosted_id, h.status as hosted_status, h.check_in, r.room_num, u.name, u.id as user_id FROM room as r, hosted as h, user as u WHERE h.room_id = r.id AND h.check_in = :data AND h.status != 3 AND h.user_id = u.id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":data", $day);
+            $stmt->execute();
+            return $stmt;
+        }
+
+        public function getAllRoomsWithStatus($day){
+            $query = "SELECT h.id as hosted_id, h.status as hosted_status, h.check_in, r.room_num FROM room as r LEFT JOIN hosted as h ON h.room_id = r.id AND h.check_in = :data AND h.status != 3";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":data", $day);
+            $stmt->execute();
+            return $stmt;
         }
 
         public function getReservasByDate(){
