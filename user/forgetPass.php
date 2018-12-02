@@ -1,12 +1,5 @@
 <?php
-session_start();
-require_once 'facebookAuth.php';
-require_once 'assets/loginController.php';
-
-if(isset($_SESSION['email_user']) && isset($_SESSION['nome_user'])){
-    header('Location: menu.php');
-}
-
+require_once 'assets/recoverPass.php';
 ?>
 
 <!DOCTYPE html>
@@ -31,41 +24,24 @@ if(isset($_SESSION['email_user']) && isset($_SESSION['nome_user'])){
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Login Usuário</p>
+    <p class="login-box-msg">Recuperar Senha</p>
 
-    <form method="post" action="index.php">
+    <form method="post" action="forgetPass.php">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" name="email" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="senha" placeholder="Senha">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
       <div class="row">
         <div class="col-xs-8">
-        
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">Entrar</button>
+          <button type="submit" name="recover" class="btn btn-primary btn-block btn-flat">Recuperar</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-
-    <div class="social-auth-links text-center">
-      <p>- OU -</p>
-      <a href=<?=$loginUrl?> class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Login com 
-        Facebook</a>
-    
-    </div>
-
-    
-    <a href="register.php" class="text-center">Registro de novo membro</a>
-    <br>
-    <a href="forgetPass.php">Esqueci minha senha</a><br>
-
+    <a href="index.php">Entrar</a><br>
   </div>
 </div>
 

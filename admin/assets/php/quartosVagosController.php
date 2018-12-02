@@ -3,6 +3,7 @@
 require_once '../assets/php/classes/classDatabase.php';
 require_once '../assets/php/classes/classHosted.php';
 require_once '../assets/php/classes/classUser.php';
+require_once 'email.php';
 
 $hosted = new Hosted();
 $user = new User();
@@ -42,7 +43,10 @@ if(isset($_POST['cadastrar'])){
     $user->setName($nome);
     $user->setUser($usuario);
     $insertion = $user->createUser();
-    var_dump($pre_senha);
+
+    $mail = new Mail($email, $pre_senha, $nome);
+    $sendEmail = $mail->sendMail();
+    
     if($insertion){
         echo '<div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -56,6 +60,7 @@ if(isset($_POST['cadastrar'])){
                     Não foi possivel inserir novo usuário!
               </div>';
     }
+
 }
 
 $users = $user->index()->fetchAll(PDO::FETCH_OBJ);
