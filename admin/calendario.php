@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Sao_Paulo');
 $tituloPagina = "Calendário";
 require_once 'assets/php/calendarioController.php';
 require_once 'assets/templates/header.php';
@@ -15,6 +16,15 @@ require_once 'assets/templates/header.php';
     <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
     <li class="active">Celendario</li>
     </ol>
+</section>
+
+<section class="text-center my-4">
+    <h1><strong>
+        <?php
+            $d = DateTime::createFromFormat('Y-m-d', $data);
+            echo($d->format('d/m/Y'));
+        ?>
+    </strong></h1>
 </section>
 
 <section class="content">

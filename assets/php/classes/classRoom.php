@@ -22,6 +22,14 @@
             return $stmt;
         }
 
+        public function getRoomById($id){
+            $query = 'SELECT * FROM room WHERE room.id = :id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            return $stmt;
+        }
+
         public function index(){
 
             $query = 'SELECT * FROM room WHERE 1';

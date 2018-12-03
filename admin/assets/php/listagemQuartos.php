@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Sao_Paulo');
 include_once '../assets/php/classes/classHosted.php';
 $hosted = new Hosted();
 

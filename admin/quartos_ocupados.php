@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Sao_Paulo');
 $tituloPagina = "Quartos Ocupados";
 require_once 'assets/php/quartosOcupadosController.php';
 require_once 'assets/templates/header.php';

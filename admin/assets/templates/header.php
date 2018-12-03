@@ -88,6 +88,7 @@
         <ul class="treeview-menu">
           <li><a href="quartos_ocupados.php"><i class="fa fa-circle-o"></i>Quartos Reservados</a></li>
           <li><a href="quartos_vagos.php"><i class="fa fa-circle-o"></i>Quartos Livres</a></li>
+          <li><a href="registros.php"><i class="fa fa-circle-o"></i>Registros</a></li>
         </ul>
       </li>
       <li class="menu-texto">

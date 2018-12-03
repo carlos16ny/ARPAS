@@ -5,7 +5,7 @@ $data['token'] = '26CF138C5142403BA31DB986AA5FB9BB';
 $data['email'] =  'carloshpa.mg4@me.com'; 
 $data['itemId1'] = '01'; 
 $data['itemQuantity1'] = '01'; 
-$data['itemAmount1'] = '39.90'; 
+$data['itemAmount1'] = '30.00'; 
 $data['itemDescription1'] = 'Diária de Quarto';
 $data['acceptPaymentMethodName'] = 'VISA';
 
@@ -45,6 +45,7 @@ echo $xml->code;
 </script>
 
 <script>
+
  var code = <?=json_encode($xml->code)?>;
     
     PagSeguroLightbox(

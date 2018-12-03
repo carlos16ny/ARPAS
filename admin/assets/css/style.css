@@ -351,3 +351,11 @@
 .menu-texto span{
   font-size: 2.4rem;
 }
+
+.table td{
+  font-size: 1.8rem !important;
+}
+
+.input-group .form-control{
+  font-size: 1.8rem !important;
+}

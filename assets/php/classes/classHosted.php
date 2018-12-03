@@ -90,7 +90,8 @@ require_once 'classDatabase.php';
             $stmt->bindParam(":price", $price );
             try{
                 $stmt->execute();
-                return 1;
+                return $this->conn->lastInsertId();
+                
             }catch (PDOException $e){
                 echo $e->getMessage();
                 return 0;
@@ -129,6 +130,14 @@ require_once 'classDatabase.php';
                 echo $e->getMessage();
                 return NULL;
             }
+        }
+        public function getHosts(){
+
+            $query = 'SELECT h.*, u.name, r.room_num FROM hosted as h, user as u, room as r WHERE h.user_id = u.id AND h.room_id = r.id GROUP BY h.id ORDER BY h.check_in DESC' ;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;
+       
         }
 
         public function getHostedCount($user_id){
@@ -230,6 +239,19 @@ require_once 'classDatabase.php';
             $stmt->bindParam(":data", $day);
             $stmt->execute();
             return $stmt;
+        }
+
+        public function pagarReserva(){
+            $query = "UPDATE hosted SET status = 2 WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            try{
+                $stmt->execute();
+                return 1;
+            }catch (PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
         }
 
         public function getReservasByDate(){
