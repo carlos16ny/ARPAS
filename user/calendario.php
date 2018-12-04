@@ -3,13 +3,20 @@ session_start();
 include 'assets/protection.php';
 $tituloPagina = 'Reservas';
 include 'assets/templates/header.php';
-// require_once 'assets/controllerAgendamento.php';
 ?>
 
 <link rel="stylesheet" href="../admin-components/bower_components/fullcalendar/dist/fullcalendar.min.css">
 <link rel="stylesheet" href="../admin-components/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
 <link rel="stylesheet" href="../admin-components/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
+<style>
+.fc-title{
+  font-size : 2rem;
+}
+.fc-content{
+  text-align: center;
+}
+</style>
 
 <section class="content-header">
     <h1>
@@ -95,6 +102,22 @@ include 'assets/templates/header.php';
               <!-- /input-group -->
             </div>
           </div>
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Legenda</h3>
+            </div>
+            <div class="box-body">
+
+              <table class="table table-bordered mt-2">
+                <tr>
+                  <th><div class=" w-100 py-2 text-center bg-green">Pago</div></th>
+                </tr>
+                <tr>
+                  <th><div class=" w-100 py-2 text-center bg-blue">Reservado</div></th>
+                </tr>
+              </table>
+          </div>
+        </div>
         </div>
         <!-- /.col -->
         <div class="col-md-9">

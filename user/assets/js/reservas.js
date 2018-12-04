@@ -2,7 +2,33 @@
 var resume = [];
 
 $(function () {
+    let xml = new XMLHttpRequest();
 
+    var url = "./assets/calendarioInicioController.php";
+    xml.open("POST", url, true);
+    xml.setRequestHeader("Content-type", "application/json");
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            request = JSON.parse(xml.responseText);
+            for(i=0; i<request.length; ++i){
+                resume.push({
+                    start: request[i].check_in,
+                    title : 'Quarto ' + request[i].room_num,
+                    backgroundColor: request[i].status == 1 ? '#0073b7' : '#00a65a',
+                    allDay : true,
+                    borderColor :  'black',
+                    textColor : 'white'
+                })
+            }    
+            loadCallendar();
+        }
+    }
+
+    xml.send();
+});
+
+
+function loadCallendar(){
     var date = new Date()
     var d = date.getDate(),
         m = date.getMonth(),
@@ -30,12 +56,17 @@ $(function () {
             getAvaliableDays(data);
         },
 
-        eventColor: 'blue',
+        // eventColor: 'blue',
+        events: resume
+
     });
-});
+}
+
 
 var options = [];
 var complete;
+
+
 
 //day by day
 function getAvaliableDays(data) {
@@ -248,6 +279,7 @@ $('#btn-buscar').click((event)=>{
 
 // Envio e resposta das reservas
 $("#concluir").click((event)=>{
+
     event.preventDefault();
 
     var list = $("#resumo").find("tr").toArray();
@@ -300,7 +332,7 @@ $("#concluir").click((event)=>{
                     });
                 }else{
                     bootbox.confirm({
-                        message: "Reservas efetuadas com sucess! Deseja efetuar mais reservas? ",
+                        message: "Reservas efetuadas com sucesso! Deseja efetuar mais reservas? ",
                         buttons: {
                             confirm: {
                                 label: 'Sim',

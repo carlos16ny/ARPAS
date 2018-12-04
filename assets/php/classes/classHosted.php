@@ -131,6 +131,15 @@ require_once 'classDatabase.php';
                 return NULL;
             }
         }
+
+        public function getHostReservedByUser($id){
+            $query = 'SELECT h.*, u.name, r.room_num FROM hosted as h, user as u, room as r WHERE h.user_id = :user_id  AND h.room_id = r.id  AND h.status != 3 GROUP BY h.id ORDER BY h.check_in DESC';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $id);
+            $stmt->execute();
+            return $stmt;
+   
+        }
         public function getHosts(){
 
             $query = 'SELECT h.*, u.name, r.room_num FROM hosted as h, user as u, room as r WHERE h.user_id = u.id AND h.room_id = r.id GROUP BY h.id ORDER BY h.check_in DESC' ;
