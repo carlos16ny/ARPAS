@@ -34,27 +34,35 @@ if(isset($_POST)){
     if($dados->action == "register"){
 
         if($dados->type == "user"){
-            if(isset($dados->senha)){
-                $senha = md5($dados->senha);
-                $usuario = substr(time(), 0, 6);
-                $user->setPass($senha);
-                $user->setEmail($dados->email);
-                $user->setName($dados->nome);
-                $user->setUser($usuario);
-                $user->setBirthday($dados->nascimento);
-                $user->setFoto($dados->foto);
-                $result = $user->createUser();
-                echo $result;
+
+            $user->setEmail($dados->email);
+
+            if($user->getUserByEmail()->rowCount() > 0){
+                echo 200;
             }else{
-                $senha = md5(time());
-                $usuario = substr(str_replace(" ", $dados->nome), 0, 6);
-                $user->setPass($senha);
-                $user->setEmail($dados->email);
-                $user->setName($dados->nome);
-                $user->setUser($usuario);
-                $result = $user->createUser();
-                echo $result;
+                if(isset($dados->senha)){
+                    $senha = md5($dados->senha);
+                    $usuario = substr(time(), 0, 6);
+                    $user->setPass($senha);
+                    $user->setName($dados->nome);
+                    $user->setUser($usuario);
+                    $user->setBirthday($dados->nascimento);
+                    $user->setFoto($dados->foto);
+                    $result = $user->createUser();
+                    echo $result;
+                }else{
+                    $senha = md5(time());
+                    $usuario = substr(str_replace(" ", $dados->nome), 0, 6);
+                    $user->setPass($senha);
+                    $user->setEmail($dados->email);
+                    $user->setName($dados->nome);
+                    $user->setUser($usuario);
+                    $result = $user->createUser();
+                    echo $result;
+                }
             }
+
+            
         }else if($dados->type == "admin"){
             
         }else{

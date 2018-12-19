@@ -49,11 +49,16 @@ function registerClick(event){
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
             var request = xml.responseText;
+
             if (request == 1) {
                 bootbox.confirm("Cadastro realizado com sucesso. Relize o login.", function (result) {
                     window.location.href = "index.php"
                 });
-            } else {
+            }else if (request == 200){
+                bootbox.confirm("Já existe um usuário cadastrado com esse email. Tente realizar o login ou recupere sua senha via email", function (result) {
+                    window.location.href = "index.php"
+                });
+            }else{
                 bootbox.confirm("Cadastro não pode ser concluido, tente novamente.", function (result) {
                     window.location.reload(true);
                 });
